@@ -1,0 +1,23 @@
+[package]
+name = "daykit"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+# UI 框架(只开 web 特性,因为我们走"网页应用 + 加到主屏"的路线)
+dioxus = { version = "0.7", features = ["web"] }
+
+# 数据序列化
+serde = { version = "1", features = ["derive"] }
+
+# 浏览器 localStorage 读写(单用户本地缓存)
+gloo-storage = "0.3"
+
+# 浏览器时间 API(获取当前时间戳、格式化日期)
+js-sys = "0.3"
+wasm-bindgen = "0.2"
+
+[profile.release]
+opt-level = "z"   # 体积优先,网页应用更在意下载大小
+lto = true

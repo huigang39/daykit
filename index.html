@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>{app_title}</title>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover 让内容能延伸到 iPhone 的刘海/底部安全区 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- PWA 清单 -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0b0b0f" />
+
+    <!-- iPhone "添加到主屏幕" 后的表现 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DayKit" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+
+    <!-- 注册 Service Worker(离线缓存)。本地 localhost 或 HTTPS 下才会生效。 -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/sw.js").catch(function (e) {
+            console.warn("SW 注册失败:", e);
+          });
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Dioxus 把整个应用挂载到这里 -->
+    <div id="main"></div>
+  </body>
+</html>
